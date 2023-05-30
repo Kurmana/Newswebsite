@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        {% for i in news %}
+        <div class="article">
+          <h2><span>{{ i.title }}</span> </h2>
+          <div class="clr"></div>
+          <p><span class="date">{{ i.created_date }}</span> Автор <a href="https://www.hrw.org/about/people/aichurek-kurmanbekova" target="_blank">{{ i.owner }}</a> &nbsp;|&nbsp; Категория <a href="#">{{ i.category.title }}</a> <a href="#"</a></p>
+          <img src="{{ i.image.url }}" width="525" height="325" alt="" />
+          <p>{{ i.description|truncatechars:150 }}</p>
+          <p class="spec"><a href="/news/{{ i.id }}" class="rm">Подробнее &raquo;</a> <a href="/news/{{ i.id }}" class="com"><span></span> Комментарии </a></p>
+        </div>
+        {% endfor %}
+
+        <p class="pages"><small>Page 1 of 2 &nbsp;&nbsp;&nbsp;</small> <span>1</span> <a href="#">2</a> <a href="#">&raquo;</a></p>
+      </div>
+      <div class="sidebar">
+        <div class="searchform">
+          <form id="formsearch" name="formsearch" method="post" action="#">
+            <span>
+            <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
+            </span>
+            <input name="button_search" src="{% static 'images/search_btn.gif' %}" class="button_search" type="image" />
+          </form>
+        </div>
+
+        {% endblock %}

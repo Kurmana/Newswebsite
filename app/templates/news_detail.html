@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        <div class="article">
+          <h2><span>{{ news.title }}</span> Entry</h2>
+          <div class="clr"></div>
+          <p>Posted by <a href="https://www.hrw.org/about/people/aichurek-kurmanbekova" target="_blank">{{ news.owner }}</a> <span>&nbsp;&bull;&nbsp;</span> Категория <a href="/category/{{ i.id }}">{{ news.category }}</a> <a href="#"></a></p>
+          <img src="{{ news.image.url }}" width="525" height="305" alt="" />
+          <p>{{ news.description }}</p>
+          <p><a href="#"><strong></strong></a> <span>&nbsp;&bull;&nbsp;</span> {{ news.created_date }} <span>&nbsp;&bull;&nbsp;</span> <a href="#"><strong></strong></a></p>
+          <div>
+                            <h2 class="tm-color-primary tm-post-title">Комментарии</h2>
+                            <hr class="tm-hr-primary tm-mb-45">
+                            {% for comment in news.comments.all %}
+                            <div class="tm-comment tm-mb-45">
+                                <figure class="tm-comment-figure">
+                                    <img src="/news/{{ i.id }}" alt="Image" class="mb-2 rounded-circle img-thumbnail">
+                                    <figcaption class="tm-color-primary text-center">{{ comment.name }}</figcaption>
+                                </figure>
+                                <div>
+                                    <p>
+                                      {{ comment.content }}
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+
+                                        <span class="tm-color-primary">{{ comment.created_date }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <form method="post" class="mb-5 tm-comment-form">
+                                <h2 class="tm-color-primary tm-post-title mb-4">Ваш комментарий</h2>
+                                <div class="mb-4">
+                                    {{ form.name }}
+                                    {% csrf_token %}
+                                </div>
+                                <br>
+                                    {{ form.email }}
+                                </div>
+                                <br>
+                                <div class="mb-4">
+                                    {{ form.content }}
+                                </div>
+                                <br>
+                                <div class="text-right">
+                                    <button class="tm-btn tm-btn-primary tm-btn-small">Отправить</button>
+                                </div>
+                            </form>
+                        </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="searchform">
+          <form id="formsearch" name="formsearch" method="post" action="#">
+            <span>
+            <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
+            </span>
+            <input name="button_search" src="images/search_btn.gif" class="button_search" type="image" />
+          </form>
+        </div>
+        {% endblock %}
